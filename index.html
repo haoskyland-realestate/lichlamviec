@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hào Sky Land - Lịch Làm Việc Thông Minh</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-green: #1b4d3e; /* Xanh lá đậm sang trọng */
+            --light-green: #2d7d5d;
+            --gold: #d4af37; /* Vàng kim tinh tế */
+            --light-gold: #f4e3b1;
+            --dark: #222222;
+            --light-bg: #f9fbf9;
+            --card-bg: #ffffff;
+            --text-muted: #777777;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-green), #0f3025);
+            color: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(27, 77, 62, 0.15);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--gold);
+        }
+
+        .header-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--gold);
+        }
+
+        .header-title p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .brand-logo {
+            text-align: right;
+        }
+
+        .brand-logo h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .brand-logo span {
+            color: var(--gold);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 10px;
+            width: 250px;
+            margin-top: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            background: var(--gold);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* Navigation Tabs */
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            background-color: var(--card-bg);
+            border: 2px solid #e0e0e0;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--primary-green);
+            color: #fff;
+            border-color: var(--primary-green);
+        }
+
+        .tab-btn.active i {
+            color: var(--gold);
+        }
+
+        /* Content Sections */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Daily Timeline Style */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: #e0e0e0;
+        }
+
+        .timeline-item {
+            position: relative;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            border-left: 5px solid var(--primary-green);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 26px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 3px var(--light-bg);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item.completed {
+            border-left-color: #cbd5e1;
+            opacity: 0.7;
+        }
+
+        .timeline-item.completed::after {
+            background: #cbd5e1;
+        }
+
+        .timeline-item.completed .task-title {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .time-badge {
+            background-color: var(--light-gold);
+            color: #8a6d1c;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .task-detail {
+            flex-grow: 1;
+            padding-right: 20px;
+        }
+
+        .task-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .task-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .checkbox-wrapper {
+            font-size: 24px;
+            color: #e0e0e0;
+            transition: color 0.3s ease;
+        }
+
+        .timeline-item.completed .checkbox-wrapper {
+            color: var(--light-green);
+        }
+
+        /* Weekly Cards Style */
+        .weekly-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .weekly-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            border-top: 4px solid var(--gold);
+        }
+
+        .weekly-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .weekly-task-list {
+            list-style: none;
+        }
+
+        .weekly-task-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px dashed #f5f5f5;
+            cursor: pointer;
+        }
+
+        .weekly-task-item:last-child {
+            border-bottom: none;
+        }
+
+        .weekly-task-item span {
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .weekly-task-item.completed span {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .weekly-task-item i {
+            color: #cbd5e1;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .weekly-task-item.completed i {
+            color: var(--light-green);
+        }
+
+        /* Reflections Section */
+        .reflection-sec {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            margin-top: 30px;
+            border: 1px solid #e8eee8;
+        }
+
+        .reflection-sec h2 {
+            font-size: 18px;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reflection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .reflection-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .reflection-card label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .reflection-card textarea {
+            width: 100%;
+            height: 100px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            font-family: inherit;
+            font-size: 13px;
+            resize: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .reflection-card textarea:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        .btn-save {
+            background-color: var(--primary-green);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-save:hover {
+            background-color: var(--light-green);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: var(--text-muted);
+            padding: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            .brand-logo {
+                text-align: center;
+            }
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header>
+        <div class="header-title">
+            <h1>LỊCH TRÌNH LÀM VIỆC CÁ NHÂN</h1>
+            <p>“Tốc độ thành công phải nhanh hơn tốc độ già đi của bố mẹ.”</p>
+            <div style="margin-top: 15px;">
+                <span style="font-size: 13px;">Tiến độ hoàn thành ngày: <strong id="progress-text">0%</strong></span>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+        <div class="brand-logo">
+            <h2>Hào <span>Sky Land</span></h2>
+            <p style="font-size: 12px; opacity: 0.8; margin-top: 4px;">Tư Vấn Đầu Tư BĐS Cao Cấp</p>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('daily-tab', this)">
+            <i class="fa-solid fa-calendar-day"></i> Lịch Trình Hàng Ngày
+        </button>
+        <button class="tab-btn" onclick="openTab('weekly-tab', this)">
+            <i class="fa-solid fa-calendar-week"></i> Kế Hoạch Tuần (Task List)
+        </button>
+    </div>
+
+    <!-- TAB 1: DAILY TIMELINE -->
+    <div id="daily-tab" class="tab-content active">
+        <div class="timeline">
+            <!-- Item 1 -->
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">05:00 - 06:30</span>
+                    <h3 class="task-title">Tập gym / Chạy bộ & Vệ sinh cá nhân</h3>
+                    <p class="task-desc">Kích hoạt năng lượng đầu ngày mới khỏe mạnh và tỉnh táo.</p>
+                </div>
+                <div class="checkbox-wrapper">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">06:30 - 07:30</span>
+                    <h3 class="task-title">Ăn sáng + Đọc 10 trang sách</h3>
+                    <p class="task-desc">Nạp năng lượng thể chất và tri thức, chuẩn bị tinh thần tốt nhất.</p>
+                </div>
+                <div class="checkbox-wrapper">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">08:00 - 09:00</span>
+                    <h3 class="task-title">Khởi động ngày mới & Teamwork</h3>
+                    <p class="task-desc">Kiểm tra tin nhắn/email, thảo luận nhóm sale, xác định 3 mục tiêu lớn hôm nay.</p>
+                </div>
+                <div class="checkbox-wrapper">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">09:00 - 11:00</span>
+                    <h3 class="task-title">Tập trung cao độ: Telesale & Chạy Tool</h3>
+                    <p class="task-desc">Thực hiện 20 cuộc gọi chất lượng cao, hoàn thành chạy tool tự động Zalo/Facebook.</p>
+                </div>
+                <div class="checkbox-wrapper">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">11:00 - 12:00</span>
+                    <h3 class="task-title">MKT & Đo lường số liệu</h3>
+                    <p class="task-desc">Đo lường chiến dịch quảng cáo Facebook Ads, tối ưu ngân sách và chỉnh sửa nhóm target.</p>
+                </div>
+                <div class="checkbox-wrapper">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">12:00 - 13:00</span>
+                    <h3 class="task-title">Ăn trưa & Nghỉ ngơi</h3>
+                    <p class="task-desc">Tái tạo năng lượng, cho mắt và não bộ nghỉ ngơi.</p>
+                </div>
+                <div class="checkbox-wrapper">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+            </div>
+
+            <!-- Item 7 -->
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">13:00 - 14:30</span>
+                    <h3 class="task-title">Sáng tạo nội dung (Khối óc)</h3>
+                    <p class="task-desc">Sử dụng Gemini/NotebookLM lên ý tưởng kịch bản, viết bài định vị thương hiệu.</p>
+                </div>
+                <div class="checkbox-wrapper">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+            </div>
+
+            <!-- Item 8 -->
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">14:30 - 16:00</span>
+                    <h3 class="task-title">Tương tác & Chăm sóc (Trái tim)</h3>
+                    <p class="task-desc">Telesale follow-up khách cũ, nhắn tin chăm sóc và gửi cập nhật thị trường cho tệp khách VIP.</p>
+                </div>
+                <div class="checkbox-wrapper">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+            </div>
+
+            <!-- Item 9 -->
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">16:00 - 18:30</span>
+                    <h3 class="task-title">Gặp gỡ khách hàng & Đối tác (Hẹn cafe)</h3>
+                    <p class="task-desc">Thời gian thong thả để trò chuyện chuyên sâu và tạo niềm tin bền vững.</p>
+                </div>
+                <div class="checkbox-wrapper">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+            </div>
+
+            <!-- Item 10 -->
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">19:30 - 21:00</span>
+                    <h3 class="task-title">Học Tiếng Anh / Kỹ năng mới</h3>
+                    <p class="task-desc">Đầu tư vào tư duy toàn cầu để phục vụ tệp khách hàng tinh hoa.</p>
+                </div>
+                <div class="checkbox-wrapper">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: WEEKLY TASKS -->
+    <div id="weekly-tab" class="tab-content">
+        <div class="weekly-grid">
+            <!-- Card 1 -->
+            <div class="weekly-card">
+                <h3><i class="fa-solid fa-bullhorn"></i> MKT & Định Vị (Tuần)</h3>
+                <ul class="weekly-task-list">
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <span>Sản xuất 3 Video TikTok</span>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <span>Sản xuất 1 Video YouTube</span>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <span>Viết Content Batdongsan.com</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="weekly-card">
+                <h3><i class="fa-solid fa-gears"></i> Hệ Thống & Spam</h3>
+                <ul class="weekly-task-list">
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <span>Soạn data tool Zalo + Hình ảnh</span>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <span>Thiết kế ảnh Zalo / FB Spam</span>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <span>Content FB Tin Nhắn</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="weekly-card">
+                <h3><i class="fa-solid fa-house-laptop"></i> Chủ Nhật Reset</h3>
+                <ul class="weekly-task-list">
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <span>Lên bài 1 tuần FB Dự án chính</span>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <span>Xóa dữ liệu ảnh, tài liệu cũ</span>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <span>Review hiệu quả quảng cáo tuần qua</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reflections Section -->
+    <div class="reflection-sec">
+        <h2><i class="fa-solid fa-pen-fancy"></i> Cuối Ngày Review & Cam Kết</h2>
+        <div class="reflection-grid">
+            <div class="reflection-card">
+                <label>• Tôi đã làm được:</label>
+                <textarea id="ref-done" placeholder="Hôm nay anh đã hoàn thành những giao dịch, cột mốc nào tốt?"></textarea>
+            </div>
+            <div class="reflection-card">
+                <label>• Tôi chưa làm được:</label>
+                <textarea id="ref-undone" placeholder="Có việc gì bị trì hoãn hoặc cần cải thiện thêm?"></textarea>
+            </div>
+            <div class="reflection-card">
+                <label>• Tôi cam kết ngày mai:</label>
+                <textarea id="ref-promise" placeholder="Mục tiêu cốt lõi anh nhất định phải đạt ngày mai là gì?"></textarea>
+            </div>
+        </div>
+        <button class="btn-save" onclick="saveReflection()">
+            <i class="fa-solid fa-floppy-disk"></i> Lưu Nhật Ký Ngày
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Hào Sky Land. Hệ thống Quản lý Hiệu suất Nội bộ.</p>
+    </footer>
+</div>
+
+<script>
+    // Tab switching logic
+    function openTab(tabId, btn) {
+        // Hide all tab content
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.classList.remove('active'));
+
+        // Remove active class from all buttons
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(button => button.classList.remove('active'));
+
+        // Show selected tab and activate button
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    // Toggle daily task status and calculate progress
+    function toggleTask(element) {
+        element.classList.toggle('completed');
+        
+        // Update checkbox icon
+        const icon = element.querySelector('.checkbox-wrapper i');
+        if (element.classList.contains('completed')) {
+            icon.className = 'fa-solid fa-circle-check';
+        } else {
+            icon.className = 'fa-regular fa-circle-check';
+        }
+
+        calculateProgress();
+    }
+
+    // Toggle weekly task list status
+    function toggleWeeklyTask(element) {
+        element.classList.toggle('completed');
+        
+        // Update icon
+        const icon = element.querySelector('i');
+        if (element.classList.contains('completed')) {
+            icon.className = 'fa-solid fa-square-check';
+        } else {
+            icon.className = 'fa-regular fa-square-check';
+        }
+    }
+
+    // Calculate progress bar percentage
+    function calculateProgress() {
+        const totalTasks = document.querySelectorAll('.timeline-item').length;
+        const completedTasks = document.querySelectorAll('.timeline-item.completed').length;
+        const percentage = Math.round((completedTasks / totalTasks) * 100);
+
+        document.getElementById('progress-bar').style.width = percentage + '%';
+        document.getElementById('progress-text').innerText = percentage + '%';
+    }
+
+    // Save reflection to LocalStorage (saves data even if page is refreshed)
+    function saveReflection() {
+        const doneText = document.getElementById('ref-done').value;
+        const undoneText = document.getElementById('ref-undone').value;
+        const promiseText = document.getElementById('ref-promise').value;
+
+        localStorage.setItem('ref-done', doneText);
+        localStorage.setItem('ref-undone', undoneText);
+        localStorage.setItem('ref-promise', promiseText);
+
+        alert("Đã lưu nhật ký ngày hôm nay thành công, Sếp Hào!");
+    }
+
+    // Load saved reflections on page load
+    window.onload = function() {
+        if(localStorage.getItem('ref-done')) {
+            document.getElementById('ref-done').value = localStorage.getItem('ref-done');
+        }
+        if(localStorage.getItem('ref-undone')) {
+            document.getElementById('ref-undone').value = localStorage.getItem('ref-undone');
+        }
+        if(localStorage.getItem('ref-promise')) {
+            document.getElementById('ref-promise').value = localStorage.getItem('ref-promise');
+        }
+    }
+</script>
+
+</body>
+</html>
