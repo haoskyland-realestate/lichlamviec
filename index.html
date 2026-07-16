@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hào Sky Land - Lịch Làm Việc & Thống Kê</title>
-    <!-- Google Fonts -->
+    <title>Hào Sky Land - Checklist & Thống Kê</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js for Statistics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -20,7 +17,7 @@
             --dark: #222222;
             --light-bg: #f9fbf9;
             --card-bg: #ffffff;
-            --text-muted: #777777;
+            --text-muted: #555555;
         }
 
         * {
@@ -33,7 +30,7 @@
         body {
             background-color: var(--light-bg);
             color: var(--dark);
-            line-height: 1.6;
+            line-height: 1.5;
             padding: 20px;
         }
 
@@ -168,8 +165,8 @@
             position: relative;
             background-color: var(--card-bg);
             border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.02);
             border-left: 5px solid var(--primary-green);
             display: flex;
@@ -188,7 +185,7 @@
             content: '';
             position: absolute;
             left: -26px;
-            top: 26px;
+            top: 22px;
             width: 10px;
             height: 10px;
             border-radius: 50%;
@@ -209,16 +206,16 @@
 
         .timeline-item.completed .task-title {
             text-decoration: line-through;
-            color: var(--text-muted);
+            color: #999;
         }
 
         .time-badge {
             background-color: var(--light-gold);
             color: #8a6d1c;
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 20px;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 8px;
             display: inline-block;
         }
@@ -229,15 +226,11 @@
         }
 
         .task-title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             color: var(--dark);
-            margin-bottom: 4px;
-        }
-
-        .task-desc {
-            font-size: 13px;
-            color: var(--text-muted);
+            margin-bottom: 0;
+            line-height: 1.4;
         }
 
         .checkbox-wrapper {
@@ -250,10 +243,10 @@
             color: var(--light-green);
         }
 
-        /* Weekly Cards Style */
+        /* Task Cards Style */
         .weekly-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 20px;
         }
 
@@ -283,21 +276,36 @@
 
         .weekly-task-item {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
             padding: 10px 0;
             border-bottom: 1px dashed #f5f5f5;
             cursor: pointer;
         }
 
-        .weekly-task-item.completed span {
-            text-decoration: line-through;
+        .weekly-task-item span {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        
+        .task-sub {
+            display: block;
+            font-size: 12px;
             color: var(--text-muted);
+            margin-top: 3px;
+            font-weight: 400;
+        }
+
+        .weekly-task-item.completed span, .weekly-task-item.completed .task-sub {
+            text-decoration: line-through;
+            color: #aaa;
         }
 
         .weekly-task-item i {
             color: #cbd5e1;
             font-size: 18px;
+            margin-top: 2px;
         }
 
         .weekly-task-item.completed i {
@@ -372,11 +380,6 @@
             font-weight: 600;
             transition: all 0.3s ease;
         }
-        
-        .btn-danger:hover {
-            background-color: #d32f2f;
-            color: white;
-        }
 
         /* Reflections Section */
         .reflection-sec {
@@ -392,9 +395,6 @@
             font-size: 18px;
             color: var(--primary-green);
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .reflection-grid {
@@ -413,19 +413,13 @@
 
         .reflection-card textarea {
             width: 100%;
-            height: 100px;
+            height: 80px;
             padding: 12px;
             border-radius: 8px;
             border: 1px solid #e0e0e0;
             font-family: inherit;
             font-size: 13px;
             resize: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .reflection-card textarea:focus {
-            outline: none;
-            border-color: var(--primary-green);
         }
 
         .btn-save {
@@ -437,37 +431,17 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 20px;
-            transition: background-color 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 8px;
         }
 
-        .btn-save:hover {
-            background-color: var(--light-green);
-        }
-
-        /* Footer */
         footer {
             text-align: center;
             margin-top: 40px;
             font-size: 12px;
             color: var(--text-muted);
             padding: 20px 0;
-        }
-
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                text-align: center;
-                gap: 15px;
-            }
-            .brand-logo {
-                text-align: center;
-            }
-            .chart-container {
-                height: 300px;
-            }
         }
     </style>
 </head>
@@ -477,10 +451,10 @@
     <!-- Header -->
     <header>
         <div class="header-title">
-            <h1>LỊCH TRÌNH LÀM VIỆC CÁ NHÂN</h1>
-            <p>“Tốc độ thành công phải nhanh hơn tốc độ già đi của bố mẹ.”</p>
+            <h1>BẢNG KIỂM TRA CÔNG VIỆC LÀM TRONG 01 NGÀY</h1>
+            <p>Bắt Đầu Ngày Mới Vào Lúc 5H:00</p>
             <div style="margin-top: 15px;">
-                <span style="font-size: 13px;">Tiến độ hoàn thành ngày: <strong id="progress-text">0%</strong></span>
+                <span style="font-size: 13px;">Tiến độ ngày: <strong id="progress-text">0%</strong></span>
                 <div class="progress-container">
                     <div class="progress-bar" id="progress-bar"></div>
                 </div>
@@ -494,106 +468,115 @@
 
     <!-- Navigation Tabs -->
     <div class="tabs">
-        <button class="tab-btn active" onclick="openTab('daily-tab', this)">
-            <i class="fa-solid fa-calendar-day"></i> Lịch Trình Ngày
-        </button>
-        <button class="tab-btn" onclick="openTab('weekly-tab', this)">
-            <i class="fa-solid fa-calendar-week"></i> Kế Hoạch Tuần
-        </button>
-        <button class="tab-btn" onclick="openTab('stats-tab', this); renderChart();">
-            <i class="fa-solid fa-chart-line"></i> Thống Kê Tháng
-        </button>
+        <button class="tab-btn active" onclick="openTab('daily-tab', this)"><i class="fa-solid fa-calendar-day"></i> Lịch 01 Ngày</button>
+        <button class="tab-btn" onclick="openTab('weekly-tab', this)"><i class="fa-solid fa-list-check"></i> Các Công Việc (TASK)</button>
+        <button class="tab-btn" onclick="openTab('stats-tab', this); renderChart();"><i class="fa-solid fa-chart-line"></i> Thống Kê</button>
     </div>
 
     <!-- TAB 1: DAILY TIMELINE -->
     <div id="daily-tab" class="tab-content active">
         <div class="timeline" id="daily-timeline">
+            
             <div class="timeline-item" onclick="toggleTask(this)">
                 <div class="task-detail">
-                    <span class="time-badge">05:00 - 06:30</span>
-                    <h3 class="task-title">Tập gym / Chạy bộ & Vệ sinh cá nhân</h3>
-                    <p class="task-desc">Kích hoạt năng lượng đầu ngày mới khỏe mạnh và tỉnh táo.</p>
+                    <span class="time-badge">5:00-08:00</span>
+                    <h3 class="task-title">Tập gym, ăn sáng và đến công ty</h3>
                 </div>
                 <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
             </div>
 
             <div class="timeline-item" onclick="toggleTask(this)">
                 <div class="task-detail">
-                    <span class="time-badge">06:30 - 07:30</span>
-                    <h3 class="task-title">Ăn sáng + Đọc 10 trang sách</h3>
-                    <p class="task-desc">Nạp năng lượng thể chất và tri thức, chuẩn bị tinh thần tốt nhất.</p>
+                    <span class="time-badge">08:00-08:30</span>
+                    <h3 class="task-title">Kiểm tra & trả lời tin nhắn, email khách hàng cũ. Trao đổi nhóm về khách hàng và tình huống khách hàng. Xác định 3 mục tiêu phải hoàn thành hôm nay.</h3>
                 </div>
                 <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
             </div>
 
             <div class="timeline-item" onclick="toggleTask(this)">
                 <div class="task-detail">
-                    <span class="time-badge">08:00 - 09:00</span>
-                    <h3 class="task-title">Khởi động ngày mới & Teamwork</h3>
-                    <p class="task-desc">Kiểm tra tin nhắn/email, thảo luận nhóm sale, xác định 3 mục tiêu lớn hôm nay.</p>
+                    <span class="time-badge">08:30-09:00</span>
+                    <h3 class="task-title">Gửi tin nhắn cập nhập thông tin đến khách hàng cũ, đăng bài viết</h3>
                 </div>
                 <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
             </div>
 
             <div class="timeline-item" onclick="toggleTask(this)">
                 <div class="task-detail">
-                    <span class="time-badge">09:00 - 11:00</span>
-                    <h3 class="task-title">Tập trung cao độ: Telesale & Chạy Tool</h3>
-                    <p class="task-desc">Thực hiện 20 cuộc gọi chất lượng cao, hoàn thành chạy tool tự động.</p>
+                    <span class="time-badge">09:00-10:30</span>
+                    <h3 class="task-title">Telesale 20 cuộc + kèm gửi thông tin, hoàn thành xong chiến dịch tool tự động, facebook tool, zalo tool.</h3>
                 </div>
                 <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
             </div>
 
             <div class="timeline-item" onclick="toggleTask(this)">
                 <div class="task-detail">
-                    <span class="time-badge">11:00 - 12:00</span>
-                    <h3 class="task-title">MKT & Đo lường số liệu</h3>
-                    <p class="task-desc">Đo lường chiến dịch quảng cáo Facebook Ads, tối ưu ngân sách.</p>
+                    <span class="time-badge">10:30-11:30</span>
+                    <h3 class="task-title">Kiểm tra hiệu quả quảng cáo, chỉnh sửa chiến dịch, tìm tài nguyên và sản xuất nội dung cho chiến dịch quảng cáo</h3>
                 </div>
                 <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
             </div>
 
             <div class="timeline-item" onclick="toggleTask(this)">
                 <div class="task-detail">
-                    <span class="time-badge">12:00 - 13:00</span>
-                    <h3 class="task-title">Ăn trưa & Nghỉ ngơi</h3>
-                    <p class="task-desc">Tái tạo năng lượng, cho mắt và não bộ nghỉ ngơi.</p>
+                    <span class="time-badge">11:30-13:00</span>
+                    <h3 class="task-title">Xem lại tình trạng khách hàng, tạo nội dung tư vấn mới trên các nền tảng AI Gemini, NotebookLM,...</h3>
                 </div>
                 <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
             </div>
 
             <div class="timeline-item" onclick="toggleTask(this)">
                 <div class="task-detail">
-                    <span class="time-badge">13:00 - 14:30</span>
-                    <h3 class="task-title">Sáng tạo nội dung (Khối óc)</h3>
-                    <p class="task-desc">Sử dụng AI lên ý tưởng kịch bản, viết bài định vị thương hiệu.</p>
+                    <span class="time-badge">13:00-13:30</span>
+                    <h3 class="task-title">Nghỉ trưa</h3>
                 </div>
                 <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
             </div>
 
             <div class="timeline-item" onclick="toggleTask(this)">
                 <div class="task-detail">
-                    <span class="time-badge">14:30 - 16:00</span>
-                    <h3 class="task-title">Tương tác & Chăm sóc (Trái tim)</h3>
-                    <p class="task-desc">Follow-up khách cũ, nhắn tin chăm sóc và gửi cập nhật cho tệp VIP.</p>
+                    <span class="time-badge">13:30-14:30</span>
+                    <h3 class="task-title">Thiết kế, Edit Video, Tìm tài nguyên edit video, lên kịch bản cho video tiếp theo, viết content.</h3>
                 </div>
                 <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
             </div>
 
             <div class="timeline-item" onclick="toggleTask(this)">
                 <div class="task-detail">
-                    <span class="time-badge">16:00 - 18:30</span>
-                    <h3 class="task-title">Gặp gỡ khách hàng & Đối tác (Hẹn cafe)</h3>
-                    <p class="task-desc">Thời gian thong thả để trò chuyện chuyên sâu và tạo niềm tin.</p>
+                    <span class="time-badge">14:30-16:00</span>
+                    <h3 class="task-title">Telesale & Follow-up khách đã tương tác nhưng chưa phản hồi.</h3>
                 </div>
                 <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
             </div>
 
             <div class="timeline-item" onclick="toggleTask(this)">
                 <div class="task-detail">
-                    <span class="time-badge">19:30 - 21:00</span>
-                    <h3 class="task-title">Học Tiếng Anh / Kỹ năng mới</h3>
-                    <p class="task-desc">Đầu tư vào tư duy toàn cầu để phục vụ tệp khách hàng tinh hoa.</p>
+                    <span class="time-badge">16:00-17:00</span>
+                    <h3 class="task-title">Thiết kế, Edit Video, lên kịch bản cho video tiếp theo, viết content.</h3>
+                </div>
+                <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
+            </div>
+
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">17:00-17:30</span>
+                    <h3 class="task-title">Gặp gỡ khách hàng và đối tác bằng việc hẹn hò cafe.</h3>
+                </div>
+                <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
+            </div>
+
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">19:00-21:00</span>
+                    <h3 class="task-title">Học tiếng anh</h3>
+                </div>
+                <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
+            </div>
+
+            <div class="timeline-item" onclick="toggleTask(this)">
+                <div class="task-detail">
+                    <span class="time-badge">21:00-23:00</span>
+                    <h3 class="task-title">Tập gym tắm rửa nghỉ ngơi</h3>
                 </div>
                 <div class="checkbox-wrapper"><i class="fa-regular fa-circle-check"></i></div>
             </div>
@@ -601,55 +584,111 @@
 
         <!-- Reflections Section -->
         <div class="reflection-sec">
-            <h2><i class="fa-solid fa-pen-fancy"></i> Cuối Ngày Review & Cam Kết</h2>
-            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
-                *Hệ thống sẽ tự động lưu tỷ lệ hoàn thành công việc của ngày hôm nay vào bảng Thống kê tháng khi anh nhấn nút lưu.
-            </p>
+            <h2>Cuối Ngày Review</h2>
             <div class="reflection-grid">
                 <div class="reflection-card">
                     <label>• Tôi đã làm được:</label>
-                    <textarea id="ref-done" placeholder="Hôm nay anh đã hoàn thành những giao dịch, cột mốc nào tốt?"></textarea>
+                    <textarea id="ref-done"></textarea>
                 </div>
                 <div class="reflection-card">
                     <label>• Tôi chưa làm được:</label>
-                    <textarea id="ref-undone" placeholder="Có việc gì bị trì hoãn hoặc cần cải thiện thêm?"></textarea>
+                    <textarea id="ref-undone"></textarea>
                 </div>
                 <div class="reflection-card">
                     <label>• Tôi cam kết ngày mai:</label>
-                    <textarea id="ref-promise" placeholder="Mục tiêu cốt lõi anh nhất định phải đạt ngày mai là gì?"></textarea>
+                    <textarea id="ref-promise"></textarea>
                 </div>
             </div>
             <button class="btn-save" onclick="saveReflection()">
-                <i class="fa-solid fa-floppy-disk"></i> Lưu Nhật Ký Ngày & Chốt Số Liệu
+                <i class="fa-solid fa-floppy-disk"></i> Lưu & Chốt Số Liệu
             </button>
         </div>
     </div>
 
-    <!-- TAB 2: WEEKLY TASKS -->
+    <!-- TAB 2: TASKS & CÔNG VIỆC CHỦ NHẬT -->
     <div id="weekly-tab" class="tab-content">
         <div class="weekly-grid">
             <div class="weekly-card">
-                <h3><i class="fa-solid fa-bullhorn"></i> MKT & Định Vị (Tuần)</h3>
+                <h3><i class="fa-solid fa-list-check"></i> Nội Dung Công Việc Nền Tảng</h3>
                 <ul class="weekly-task-list">
-                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)"><i class="fa-regular fa-square-check"></i><span>Sản xuất 3 Video TikTok</span></li>
-                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)"><i class="fa-regular fa-square-check"></i><span>Sản xuất 1 Video YouTube</span></li>
-                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)"><i class="fa-regular fa-square-check"></i><span>Viết Content Batdongsan.com</span></li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div>
+                            <span>Đọc ít nhất 10 trang sách mỗi ngày</span>
+                        </div>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div>
+                            <span>Tập thể dục có thể ở phòng gym hoặc ở nhà</span>
+                            <span class="task-sub">(15-30 phút là đủ)</span>
+                        </div>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div>
+                            <span>Thiết kế hình ảnh hay video ngắn để đăng bài truyền thông</span>
+                        </div>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div>
+                            <span>Danh thời gian 1 tuần để sản xuất 3 Video Tik Tok</span>
+                        </div>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div>
+                            <span>Dành thời gian 1 tuần sản xuất 1 Video Youtube</span>
+                        </div>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div>
+                            <span>Viết Content Batdongsan.com</span>
+                            <span class="task-sub">Thì trong 1 tuần dành ra 1 khoảng thời gian để ngồi viết bài đăng tin, nguyên cứu kỹ sản phẩm và thị trường để viết bài tối ưu.</span>
+                        </div>
+                    </li>
                 </ul>
             </div>
+
             <div class="weekly-card">
-                <h3><i class="fa-solid fa-gears"></i> Hệ Thống & Spam</h3>
+                <h3><i class="fa-solid fa-laptop-code"></i> Tool & Spam</h3>
                 <ul class="weekly-task-list">
-                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)"><i class="fa-regular fa-square-check"></i><span>Soạn data tool Zalo + Hình ảnh</span></li>
-                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)"><i class="fa-regular fa-square-check"></i><span>Thiết kế ảnh Zalo / FB Spam</span></li>
-                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)"><i class="fa-regular fa-square-check"></i><span>Content FB Tin Nhắn</span></li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div><span>Viết Zalo Spam</span></div>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div><span>Viết Content FB Tin Nhắn</span></div>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div><span>Thiết Kế Ảnh Zalo Spam</span></div>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div><span>Thiết Kế Ảnh Facebook Spam</span></div>
+                    </li>
                 </ul>
             </div>
+
             <div class="weekly-card">
-                <h3><i class="fa-solid fa-house-laptop"></i> Chủ Nhật Reset</h3>
+                <h3><i class="fa-solid fa-calendar-check"></i> Công việc ngày chủ nhật</h3>
                 <ul class="weekly-task-list">
-                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)"><i class="fa-regular fa-square-check"></i><span>Lên bài 1 tuần FB Dự án chính</span></li>
-                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)"><i class="fa-regular fa-square-check"></i><span>Xóa dữ liệu ảnh, tài liệu cũ</span></li>
-                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)"><i class="fa-regular fa-square-check"></i><span>Review hiệu quả quảng cáo tuần qua</span></li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div><span>Soạn content đăng bài cho 1 tuần cho các trang FB dự án đánh chính</span></div>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div><span>Soạn data tool zalo + hỉnh ảnh nếu có</span></div>
+                    </li>
+                    <li class="weekly-task-item" onclick="toggleWeeklyTask(this)">
+                        <i class="fa-regular fa-square-check"></i>
+                        <div><span>Xoá dữ liệu ảnh, tài liệu</span></div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -677,29 +716,24 @@
         </div>
         
         <div class="data-actions">
-            <button class="btn-danger" onclick="clearData()">
-                <i class="fa-solid fa-trash-can"></i> Xóa dữ liệu tháng này
-            </button>
+            <button class="btn-danger" onclick="clearData()">Xóa dữ liệu tháng này</button>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Hào Sky Land. Hệ thống Quản lý Hiệu suất Nội bộ.</p>
+        <p>&copy; 2026 Hào Sky Land.</p>
     </footer>
 </div>
 
 <script>
-    // ----- QUẢN LÝ TAB -----
     function openTab(tabId, btn) {
         document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(button => button.classList.remove('active'));
-
         document.getElementById(tabId).classList.add('active');
         btn.classList.add('active');
     }
 
-    // ----- QUẢN LÝ TASKS HÀNG NGÀY & TIẾN ĐỘ -----
     let currentProgress = 0;
 
     function toggleTask(element) {
@@ -724,65 +758,40 @@
         document.getElementById('progress-text').innerText = currentProgress + '%';
     }
 
-    // ----- QUẢN LÝ LƯU TRỮ (LOCAL STORAGE) -----
     function saveReflection() {
-        // Lưu Nhật ký
         localStorage.setItem('ref-done', document.getElementById('ref-done').value);
         localStorage.setItem('ref-undone', document.getElementById('ref-undone').value);
         localStorage.setItem('ref-promise', document.getElementById('ref-promise').value);
-
-        // Lưu Số liệu thống kê vào mảng
         saveDailyStats(currentProgress);
-
-        alert("Đã lưu nhật ký và cập nhật hiệu suất ngày hôm nay, Sếp Hào!");
-        
-        // Nếu đang ở tab thống kê, render lại chart
-        if(document.getElementById('stats-tab').classList.contains('active')) {
-            renderChart();
-        }
+        alert("Đã lưu tiến độ hoàn thành công việc!");
+        if(document.getElementById('stats-tab').classList.contains('active')) renderChart();
     }
 
     function saveDailyStats(percentage) {
         let stats = JSON.parse(localStorage.getItem('hao_stats') || '[]');
-        
-        // Lấy ngày hiện tại (Format: DD/MM)
         const today = new Date();
         const dateString = today.getDate().toString().padStart(2, '0') + '/' + (today.getMonth() + 1).toString().padStart(2, '0');
-
-        // Kiểm tra xem hôm nay đã lưu chưa, nếu rồi thì cập nhật, chưa thì thêm mới
         const existingRecordIndex = stats.findIndex(item => item.date === dateString);
         
         if (existingRecordIndex !== -1) {
             stats[existingRecordIndex].progress = percentage;
         } else {
             stats.push({ date: dateString, progress: percentage });
-            // Giới hạn lưu 30 ngày gần nhất để biểu đồ không quá nén
             if(stats.length > 30) stats.shift(); 
         }
-
         localStorage.setItem('hao_stats', JSON.stringify(stats));
     }
 
-    // ----- VẼ BIỂU ĐỒ & THỐNG KÊ (CHART.JS) -----
     let myChart = null;
 
     function renderChart() {
         const stats = JSON.parse(localStorage.getItem('hao_stats') || '[]');
-        
-        // Tính toán số liệu tổng quan
         if(stats.length > 0) {
-            let total = 0;
-            let maxProgress = -1;
-            let bestDay = '--/--';
-            
+            let total = 0, maxProgress = -1, bestDay = '--/--';
             stats.forEach(item => {
                 total += item.progress;
-                if(item.progress > maxProgress) {
-                    maxProgress = item.progress;
-                    bestDay = item.date;
-                }
+                if(item.progress > maxProgress) { maxProgress = item.progress; bestDay = item.date; }
             });
-
             document.getElementById('avg-completion').innerHTML = Math.round(total / stats.length) + '<span>%</span>';
             document.getElementById('total-days').innerHTML = stats.length + '<span> ngày</span>';
             document.getElementById('best-day').innerText = bestDay + (maxProgress > 0 ? ` (${maxProgress}%)` : '');
@@ -792,18 +801,11 @@
             document.getElementById('best-day').innerText = '--/--';
         }
 
-        // Tách dữ liệu cho biểu đồ
         const labels = stats.map(item => item.date);
         const data = stats.map(item => item.progress);
-
-        // Vẽ biểu đồ
         const ctx = document.getElementById('performanceChart').getContext('2d');
         
-        // Hủy biểu đồ cũ nếu đã vẽ để tránh lỗi ghi đè
-        if (myChart) {
-            myChart.destroy();
-        }
-
+        if (myChart) myChart.destroy();
         myChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -811,60 +813,34 @@
                 datasets: [{
                     label: 'Mức độ hoàn thành (%)',
                     data: data.length > 0 ? data : [0],
-                    borderColor: '#d4af37', // Vàng gold
-                    backgroundColor: 'rgba(212, 175, 55, 0.2)', // Vàng nhạt có độ trong suốt
+                    borderColor: '#d4af37', 
+                    backgroundColor: 'rgba(212, 175, 55, 0.2)',
                     borderWidth: 3,
                     pointBackgroundColor: '#1b4d3e',
                     pointBorderColor: '#ffffff',
                     pointRadius: 5,
-                    pointHoverRadius: 7,
                     fill: true,
-                    tension: 0.3 // Làm cong đường line
+                    tension: 0.3
                 }]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        title: { display: true, text: 'Hiệu suất (%)' }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return ' Hoàn thành: ' + context.parsed.y + '%';
-                            }
-                        }
-                    }
-                }
+                responsive: true, maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, max: 100 } }
             }
         });
     }
 
-    // Xóa dữ liệu thống kê
     function clearData() {
-        if(confirm("Anh có chắc chắn muốn xóa toàn bộ dữ liệu thống kê của tháng này không? (Nhật ký hôm nay vẫn sẽ giữ nguyên)")) {
+        if(confirm("Xóa toàn bộ dữ liệu thống kê của tháng này?")) {
             localStorage.removeItem('hao_stats');
             renderChart();
-            alert("Đã xóa dữ liệu thống kê!");
         }
     }
 
-    // ----- KHỞI TẠO KHI TẢI TRANG -----
     window.onload = function() {
-        // Load lại nhật ký
         if(localStorage.getItem('ref-done')) document.getElementById('ref-done').value = localStorage.getItem('ref-done');
         if(localStorage.getItem('ref-undone')) document.getElementById('ref-undone').value = localStorage.getItem('ref-undone');
         if(localStorage.getItem('ref-promise')) document.getElementById('ref-promise').value = localStorage.getItem('ref-promise');
-        
-        // Khởi tạo tiến độ mặc định
         calculateProgress();
     }
 </script>
